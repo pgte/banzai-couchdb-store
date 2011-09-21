@@ -20,8 +20,9 @@ module.exports.test_1 = function(beforeExit) {
       cb1 = true;
       assert.isNull(err);
       assert.isNotNull(doc.id);
-      doc_id = doc.id;
-      delete doc.id;
+      doc_id = doc._id;
+      delete doc._id;
+      delete doc._rev;
       assert.eql(doc, {a:1, b:2});
 
       store.load(doc_id, function(err, doc) {
@@ -55,8 +56,9 @@ module.exports.test_2 = function(beforeExit) {
       cb1 = true;
       assert.isNull(err);
       assert.isNotNull(doc.id);
-      doc_id = doc.id;
-      delete doc.id;
+      doc_id = doc._id;
+      delete doc._id;
+      delete doc._rev;
       assert.eql(doc, {c:1, d:2});
 
       store.load(doc_id, function(err, doc) {
