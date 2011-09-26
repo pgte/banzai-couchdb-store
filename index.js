@@ -80,10 +80,8 @@ module.exports = function(config) {
         return done(err);
       }
       
-      if (response.id) {
-        doc._id = response.id;
-        doc._rev = response.rev;
-      }
+      if (response.id) { doc._id = response.id; }
+      if (response.rev) { doc._rev = response.rev; }
       done(null, doc);
     });
     
