@@ -51,10 +51,6 @@ module.exports = function(config) {
         }
         return done(err);
       }
-      if (doc._id) {
-        doc.id = doc._id;
-        delete doc._id;
-      }
       done(null, doc);
     });
   }
