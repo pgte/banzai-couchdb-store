@@ -84,8 +84,35 @@ module.exports = function(config) {
     db.insert.apply(db, insertArgs);
   }
   
+  function backToRevision(docId, revision, done, dontRepeat) {
+    if (typeof(docId) === 'object') { docId = docId.id || docId._id; }
+    db.get(docId, {rev: revision}, function(err, oldVer) {
+      if (err) {
+        if (err.message == 'no_db_file' && ! dontRepeat) {
+          return createDB(function(err) {
+            if (err) { return done(err); }
+            return backToRevision(docId, revision, done, true);
+          })
+        }
+        return done(err);
+      }
+      if (err) { return done(err); }
+      db.get(docId, function(err, doc) {
+        if (err) { return done(err); }
+        oldVer._rev = doc._rev;
+        db.insert(oldVer, function(err, response) {
+          if (err) { return done(err); }
+          if (response.id) { oldVer._id = response.id; }
+          if (response.rev) { oldVer._rev = response.rev; }
+          done(null, oldVer);
+        });
+      });
+    });
+  }
+  
   return {
       load: load
     , save: save
+    , backToRevision: backToRevision
   };
 };

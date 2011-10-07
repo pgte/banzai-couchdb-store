@@ -1,7 +1,7 @@
 { "name" : "banzai-couchdb-store"
 , "description" : "CouchDB plugin module for Banzai document store."
 , "tags" : ["ETL", "pipeline", "document", "state machine"]
-, "version" : "1.0.3"
+, "version" : "1.1.0"
 , "author" : "Pedro Teixeira <pedro.teixeira@gmail.com>"
 , "repository" :
   { "type" : "git"
@@ -11,7 +11,7 @@
   { "web" : "http://github.com/pgte/banzai-docstore-couchdb/issues" }
 , "engines" : ["node >= 0.4.10"]
 , "dependencies" : {
-    "nano": "0.8.x"
+    "nano": "0.9.x"
 }
 , "main" : "./index"
 , "scripts": { "test": "expresso test.js" }
